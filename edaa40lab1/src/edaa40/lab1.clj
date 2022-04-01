@@ -32,16 +32,16 @@
 ;;	SETS
 ;;
 
-(declare cartesian)
+(defn cartesian
+  "computes Cartesian product of A and B"
+  
+  [A B]
 
-;; (defn cartesian
-;;   "computes Cartesian product of A and B"
-;;   
-;;   [A B]
-;; 
-;;   ;; uses "set", "for" 
-;; )
-;;
+  (set (for [i A j B] [i j]))
+ 
+  ;; uses "set", "for" 
+)
+
 ;; (test? "cartesian test 1" (cartesian #{1 2} #{3 4 5}) #{[1 3] [1 4] [1 5] [2 3] [2 4] [2 5]})
 
 
@@ -75,27 +75,33 @@
 
 (declare rng)
 
-;; (defn rng
-;;   "computes the range of a relation"
-;;   
-;;   [R]
-;; 
-;;   ;; uses "set", "for", "second"
-;; )
-;;
+(defn rng
+  "computes the range of a relation"
+
+  [R]
+
+  (set (for [r R] (second r)))
+
+  ;; uses "set", "for", "second"
+)
+
 ;; (test? "rng" (rng #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{:a :b :c})
 
 
-(declare image-of)
 
-;; (defn image-of 
-;;   "computes the image of the element x under R"
-;;   
-;;   [R x] 
-;; 
-;;   ;; uses "set", "for" with :when, "first", "second"
-;; )
-;; 
+(defn image-of 
+  "computes the image of the element x under R"
+  
+  [R x]
+
+  (set (for [i R 
+    :when (= (first i) x)] 
+    (second i))
+  )
+
+  ;; uses "set", "for" with :when, "first", "second"
+)
+
 ;; (test? "image-of 1" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 1) #{:a :c})
 ;; 
 ;; (test? "image-of 2" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 3) #{:a})
@@ -131,16 +137,17 @@
   [b a]
 )
 
-(declare inverse)
 
-;; (defn inverse 
-;;   "computes the inverse (aka converse) of a relation"
-;; 
-;;   [R]
-;; 
-;;   ;; uses "set", "for"
-;; )
-;; 
+(defn inverse 
+  "computes the inverse (aka converse) of a relation"
+
+  [R]
+  
+  (set (for [i R] (inv1 i)))
+
+  ;; uses "set", "for"
+)
+
 ;; (test? "inverse" (inverse #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{[:a 1] [:b 2] [:c 1] [:a 3]})
 
 
@@ -157,14 +164,16 @@
 
 (declare reflexive?)
 
-;; (defn reflexive?
-;;   "tests whether R is reflexive over A"
-;; 
-;;   [R A]
-;; 
-;;   ;; uses "every?", "contains?"
-;; )
-;; 
+(defn reflexive?
+  "tests whether R is reflexive over A"
+
+  [R A]
+   
+  (every? (fn [x] (contains? R [x x])) A)
+
+  ;; uses "every?", "contains?"
+)
+
 ;; (test? "reflexive 1" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3}) true)
 ;; 
 ;; (test? "reflexive 2" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3 4}) false)
@@ -181,36 +190,37 @@
   (every? #(not (contains? R [% %])) (dom R))
 )
 
-(declare symmetric?)
 
-;; (defn symmetric?
-;;   "tests whether R is symmetric"
-;; 
-;;   [R]
-;; 
-;;   ;; uses "every?", "contains?", "inv1"
-;; )
-;;
+
+(defn symmetric?
+  "tests whether R is symmetric"
+
+  [R]
+
+  (every? (fn [x] (contains? R (inv1 x))) R)
+
+  ;; uses "every?", "contains?", "inv1"
+)
+
 ;; (test? "symmetric 1" (symmetric? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) false)
 ;; 
 ;; (test? "symmetric 2" (symmetric? #{[1 1] [1 3] [2 2] [3 1]}) true)
 
 
-(declare transitive?)
 
-;; (defn transitive?
-;;   "tests whether R is transitive"
-;; 
-;;   [R]
-;;
-;;   ;; hint: you might want to exploit the fact that R is transitive iff for every
-;;   ;;       pair (a, b) in R the image of b under R is a subset of the image
-;;   ;;       of a under R
-;;
-;;   ;; uses "every?", "subset?", "image-of", "second", "first"
-;; )
-;;
-;; 
+(defn transitive?
+  "tests whether R is transitive"
+
+  [R]
+
+  (every? (fn [x] (subset? (image-of R (second x)) (image-of R (first x)))) R)
+
+  ;; hint: you might want to exploit the fact that R is transitive iff for every
+  ;; pair (a, b) in R the image of b under R is a subset of the image of a under R
+  
+  ;; uses "every?", "subset?", "image-of", "second", "first"
+)
+
 ;; (test? "transitive 1" (transitive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) true)
 ;; 
 ;; (test? "transitive 2" (transitive? #{[1 1] [1 2] [1 3] [2 2] [3 1] [3 3]}) false)
@@ -299,14 +309,16 @@
 
 (declare surjective?)
 
-;; (defn surjective? 
-;;   "determines whether f is surjective on codomain B"
-;;   
-;;   [f B]
-;; 
-;;   ;; uses "rng"
-;; )
-;; 
+(defn surjective? 
+  "determines whether f is surjective on codomain B"
+  
+  [f B]
+
+  (= (rng f) B)
+
+  ;; uses "rng"
+)
+ 
 ;; (test? "surjective 1" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3}) true) 
 ;; 
 ;; (test? "surjective 2" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3 4}) false)
