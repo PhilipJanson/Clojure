@@ -108,23 +108,22 @@
 
   (rand-nth (seq (all-pages web)))
    
-;;   hint: Check out "rand-nth". Also, if you need to convert a set into a sequence, 
-;;         you want to take a look at "seq".
+  ;; hint: Check out "rand-nth". Also, if you need to convert a set into a sequence, 
+  ;; you want to take a look at "seq".
 )
 
 (test? "random-page" (number? (random-page TinyWeb)))
 
 
 (defn random-link 
- 
-;;   "picks a random outgoing link from a page in a web,
-;;   returns the page the link points to"
+  "picks a random outgoing link from a page in a web,
+  returns the page the link points to"
    
   [web page] 
 
   (rand-nth (seq (image-of web page)))
  
-;;   hint: If you've done the previous one, this one should be easy.
+   ;; hint: If you've done the previous one, this one should be easy.
 )
  
 
@@ -146,7 +145,7 @@
     )
   )
 
-;;   hint: check out "rand"
+  ;; hint: check out "rand"
 )
 
 (defn random-surfer
