@@ -66,6 +66,7 @@
 ;;
 
 (def TinyWeb #{[0 1] [0 2] [1 2] [2 1] [2 3]})
+
 ;; define the relation in the figure of the instructions
 
 (test? "TinyWeb 1" (dom TinyWeb) #{0 1 2})
@@ -83,7 +84,7 @@
   
   (union (dom web) (rng web))
 
-;; hint: check out the Clojure function "union"
+  ;; hint: check out the Clojure function "union"
 )
 
 (test? "all-pages" (all-pages TinyWeb) #{0 1 2 3})
