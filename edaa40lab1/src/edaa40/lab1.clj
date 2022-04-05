@@ -42,7 +42,7 @@
   ;; uses "set", "for" 
 )
 
-;; (test? "cartesian test 1" (cartesian #{1 2} #{3 4 5}) #{[1 3] [1 4] [1 5] [2 3] [2 4] [2 5]})
+(test? "cartesian test 1" (cartesian #{1 2} #{3 4 5}) #{[1 3] [1 4] [1 5] [2 3] [2 4] [2 5]})
 
 
 (defn powerset 
@@ -85,7 +85,7 @@
   ;; uses "set", "for", "second"
 )
 
-;; (test? "rng" (rng #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{:a :b :c})
+(test? "rng" (rng #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{:a :b :c})
 
 
 
@@ -102,11 +102,9 @@
   ;; uses "set", "for" with :when, "first", "second"
 )
 
-;; (test? "image-of 1" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 1) #{:a :c})
-;; 
-;; (test? "image-of 2" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 3) #{:a})
-;; 
-;; (test? "image-of 3" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 4) #{})
+(test? "image-of 1" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 1) #{:a :c}) 
+(test? "image-of 2" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 3) #{:a}) 
+(test? "image-of 3" (image-of #{[1 :a] [2 :b] [1 :c] [3 :a]} 4) #{})
 
 
 (defn image-of-set 
@@ -148,7 +146,7 @@
   ;; uses "set", "for"
 )
 
-;; (test? "inverse" (inverse #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{[:a 1] [:b 2] [:c 1] [:a 3]})
+(test? "inverse" (inverse #{[1 :a] [2 :b] [1 :c] [3 :a]}) #{[:a 1] [:b 2] [:c 1] [:a 3]})
 
 
 
@@ -174,11 +172,9 @@
   ;; uses "every?", "contains?"
 )
 
-;; (test? "reflexive 1" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3}) true)
-;; 
-;; (test? "reflexive 2" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3 4}) false)
-;; 
-;; (test? "reflexive 3" (reflexive? #{[1 1] [1 2] [1 3] [2 3] [3 3]} #{1 2 3}) false)
+(test? "reflexive 1" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3}) true)
+(test? "reflexive 2" (reflexive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]} #{1 2 3 4}) false)
+(test? "reflexive 3" (reflexive? #{[1 1] [1 2] [1 3] [2 3] [3 3]} #{1 2 3}) false)
 
 
 
@@ -202,9 +198,8 @@
   ;; uses "every?", "contains?", "inv1"
 )
 
-;; (test? "symmetric 1" (symmetric? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) false)
-;; 
-;; (test? "symmetric 2" (symmetric? #{[1 1] [1 3] [2 2] [3 1]}) true)
+(test? "symmetric 1" (symmetric? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) false)
+(test? "symmetric 2" (symmetric? #{[1 1] [1 3] [2 2] [3 1]}) true)
 
 
 
@@ -221,9 +216,8 @@
   ;; uses "every?", "subset?", "image-of", "second", "first"
 )
 
-;; (test? "transitive 1" (transitive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) true)
-;; 
-;; (test? "transitive 2" (transitive? #{[1 1] [1 2] [1 3] [2 2] [3 1] [3 3]}) false)
+(test? "transitive 1" (transitive? #{[1 1] [1 2] [1 3] [2 2] [2 3] [3 3]}) true)
+(test? "transitive 2" (transitive? #{[1 1] [1 2] [1 3] [2 2] [3 1] [3 3]}) false)
 
 
 (defn asymmetric?
@@ -319,11 +313,9 @@
   ;; uses "rng"
 )
  
-;; (test? "surjective 1" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3}) true) 
-;; 
-;; (test? "surjective 2" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3 4}) false)
-;; 
-;; (test? "surjective 3" (surjective? #{[1 1] [2 2] [3 1]} #{1 2 3}) false) 
+(test? "surjective 1" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3}) true) 
+(test? "surjective 2" (surjective? #{[1 1] [2 2] [3 3]} #{1 2 3 4}) false)
+(test? "surjective 3" (surjective? #{[1 1] [2 2] [3 1]} #{1 2 3}) false) 
 
 
 (defn bijective? 
@@ -333,4 +325,3 @@
 
   (and (injective? f) (surjective? f B))
 )
-
