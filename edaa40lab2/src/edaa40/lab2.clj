@@ -95,7 +95,7 @@
    
   [web page] 
    
-  (if (empty? (image-of web page)) true false)
+  (empty? (image-of web page))
 )
  
 (test? "no-links? 1" (no-links? TinyWeb 0) false)
