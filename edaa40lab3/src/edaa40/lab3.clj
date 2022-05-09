@@ -72,7 +72,7 @@
 
   [p b ln]
 
-  (every? true? (for [v ln] (= (b v) p)))
+  (every? true? (for [n ln] (= (b n) p)))
 
   ;;  hint: this is a very simple one; it becomes even simpler when you remember that 
   ;;  the = operator can take any number of arguments, and that lines and the board
@@ -92,7 +92,7 @@
 
   [p b]
 
-  (some true? (for [x winning-lines] (threeinarow p b x) ))
+  (some true? (for [x winning-lines] (threeinarow p b x)))
  
   ;; hint: of course, this one uses threeinarow and winning-lines. Also, "some". 
 )
@@ -186,7 +186,7 @@
    
   [t]
 
-  (if (not (empty? (t :children))) (inc (reduce + (map gametree-count (t :children)))) 1)
+  (if (empty? (t :children)) 1 (inc (reduce + (map gametree-count (t :children)))))
  
   ;; hint: uses empty?, inc, reduce, +, map
   ;; With "map" you recursively compute a list of node counts of all
@@ -321,10 +321,7 @@
    
    [t]
 
-   (if (not(empty? (t :children) ) )
-   (cons (t :board) (rand-moves(rand-nth (t :children))))
-   '()
-   )
+   (if (empty? (t :children)) '() (cons (t :board) (rand-moves (rand-nth (t :children)))))
    
    ;; hint: uses cons, empty?, rand-nth
    ;; Returns a list where the first element is the board of the root node, followed by the

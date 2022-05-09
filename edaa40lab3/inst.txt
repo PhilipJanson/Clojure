@@ -1,0 +1,28 @@
+winning-lines: alla olika kombinationer av vinnande mönster
+
+threeinarow: loopar igenom ln och får då ut platser n. Kollar sedan om
+de platserna på bordet b är lika med spelaren p. En lista med true/false
+fås ut av for-loopen och sedan kollar every? att alla är sanna.
+
+win?: loopar igenom winninglines och kollar om något av de stämmer med
+threeinarow. Endast en av de behöver stämma därför används some?.
+
+moves: assoc skapar ett nytt bord med spelarans värde p på plats % som
+varieras från 0-8 (range 9) på bordet b. Men först kollas så att på plats %
+får bara värdet _ finnas, annars filteras det bort.
+
+gametree-count: kollar så att listan med children i trädet t inte är tom -
+är den det så returneras 1. Annars fortsätter man rekursivt. Antalet barn
+summeras med reduce + för varje steg. inc används för addera 1 till totalen
+för att ränka med roten.
+
+gametree-height: Fungerar väldigt likt den förra metoden men istället för
+att summera antalet barn med reduce + så används reduce max för att hitta
+det största talet.
+
+rand-moves: kollar först om listan är tom och om så är faller returnerar
+'(). Annars går man rekursivt igenom trädet och i varje nod väljer man ett
+slumpmässigt barn och bildar på så sätt en sekvens som i slutet hamnar bakom
+trädets rot. 
+
+
